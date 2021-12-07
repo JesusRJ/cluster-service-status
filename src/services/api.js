@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://devops-uat.sharedservices.local/api/cluster-service-status"
+  baseURL: "http://localhost:8080/api/cluster-service-status",
 });
 
 export default api;

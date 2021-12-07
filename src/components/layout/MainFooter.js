@@ -36,29 +36,8 @@ MainFooter.propTypes = {
 
 MainFooter.defaultProps = {
   contained: false,
-  copyright: "Copyright © 2018 DesignRevision",
-  menuItems: [
-    {
-      title: "Home",
-      to: "#",
-    },
-    {
-      title: "Services",
-      to: "#",
-    },
-    {
-      title: "About",
-      to: "#",
-    },
-    {
-      title: "Products",
-      to: "#",
-    },
-    {
-      title: "Blog",
-      to: "#",
-    },
-  ],
+  copyright: "Inter © 2021 Foundation",
+  menuItems: [],
 };
 
 export default MainFooter;

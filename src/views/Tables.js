@@ -2,33 +2,51 @@ import React from "react";
 import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
+import api from "../services/api";
 
 class Tables extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      servicesStatus: {}
+      servicesStatus: [],
     };
   }
 
-  // useEffect(() => {
-  //   api
-  //     .get("/v1/services/status")
-  //     .then(response => setServices(response.data))
-  //     .catch(err => {
-  //       console.error("ops! ocorreu um erro" + err);
-  //     });
-  // }, []);
+  async getData() {
+    api
+      .get("/v1/services/status")
+      .then((response) => this.setState({ servicesStatus: response.data }))
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  }
+
+  async componentDidMount() {
+    await this.getData();
+  }
 
   render() {
+    const lines = this.state.servicesStatus.map((status, index) => {
+      return [
+        <tr key={index}>
+          <td>{index}</td>
+          <td>{status.name}</td>
+          <td>{status.namespace}</td>
+          <td>{status.replicas}</td>
+          <td>{status.replicasReady}</td>
+          <td>{status.lastUpdate}</td>
+        </tr>,
+      ];
+    });
+
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle
             sm="4"
-            title="Add New Post"
-            subtitle="Blog Posts"
+            title="Serviços"
+            subtitle="Informações dos"
             className="text-sm-left"
           />
         </Row>
@@ -38,7 +56,7 @@ class Tables extends React.Component {
           <Col>
             <Card small className="mb-4">
               <CardHeader className="border-bottom">
-                <h6 className="m-0">Active Users</h6>
+                <h6 className="m-0">Serviços disponíveis</h6>
               </CardHeader>
               <CardBody className="p-0 pb-3">
                 <table className="table mb-0">
@@ -48,127 +66,23 @@ class Tables extends React.Component {
                         #
                       </th>
                       <th scope="col" className="border-0">
-                        First Name
+                        Name
                       </th>
                       <th scope="col" className="border-0">
-                        Last Name
+                        Namespace
                       </th>
                       <th scope="col" className="border-0">
-                        Country
+                        Replicas Count
                       </th>
                       <th scope="col" className="border-0">
-                        City
+                        Replicas Ready
                       </th>
                       <th scope="col" className="border-0">
-                        Phone
+                        Last Update
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Ali</td>
-                      <td>Kerry</td>
-                      <td>Russian Federation</td>
-                      <td>Gdańsk</td>
-                      <td>107-0339</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Clark</td>
-                      <td>Angela</td>
-                      <td>Estonia</td>
-                      <td>Borghetto di Vara</td>
-                      <td>1-660-850-1647</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Jerry</td>
-                      <td>Nathan</td>
-                      <td>Cyprus</td>
-                      <td>Braunau am Inn</td>
-                      <td>214-4225</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Colt</td>
-                      <td>Angela</td>
-                      <td>Liberia</td>
-                      <td>Bad Hersfeld</td>
-                      <td>1-848-473-7416</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-
-        {/* Default Dark Table */}
-        <Row>
-          <Col>
-            <Card small className="mb-4 overflow-hidden">
-              <CardHeader className="bg-dark">
-                <h6 className="m-0 text-white">Active Users</h6>
-              </CardHeader>
-              <CardBody className="bg-dark p-0 pb-3">
-                <table className="table table-dark mb-0">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col" className="border-0">
-                        #
-                      </th>
-                      <th scope="col" className="border-0">
-                        First Name
-                      </th>
-                      <th scope="col" className="border-0">
-                        Last Name
-                      </th>
-                      <th scope="col" className="border-0">
-                        Country
-                      </th>
-                      <th scope="col" className="border-0">
-                        City
-                      </th>
-                      <th scope="col" className="border-0">
-                        Phone
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Ali</td>
-                      <td>Kerry</td>
-                      <td>Russian Federation</td>
-                      <td>Gdańsk</td>
-                      <td>107-0339</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Clark</td>
-                      <td>Angela</td>
-                      <td>Estonia</td>
-                      <td>Borghetto di Vara</td>
-                      <td>1-660-850-1647</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Jerry</td>
-                      <td>Nathan</td>
-                      <td>Cyprus</td>
-                      <td>Braunau am Inn</td>
-                      <td>214-4225</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Colt</td>
-                      <td>Angela</td>
-                      <td>Liberia</td>
-                      <td>Bad Hersfeld</td>
-                      <td>1-848-473-7416</td>
-                    </tr>
-                  </tbody>
+                  <tbody>{lines}</tbody>
                 </table>
               </CardBody>
             </Card>

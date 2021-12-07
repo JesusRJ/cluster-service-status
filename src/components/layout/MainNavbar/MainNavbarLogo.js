@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Navbar, NavbarBrand } from "shards-react";
+import { NavbarBrand } from "shards-react";
 
 class MainNavbarLogo extends React.Component {
   render() {
