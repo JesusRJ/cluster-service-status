@@ -6,7 +6,7 @@ class MainNavbarLogo extends React.Component {
   render() {
     const { hideLogoText } = this.props;
     return (
-      <div className="main-navbar">
+      <div className="main-navbar__logo">
         <NavbarBrand className="w-100 mr-0" style={{ lineHeight: "50px" }}>
           <div className="d-table m-auto">
             <img

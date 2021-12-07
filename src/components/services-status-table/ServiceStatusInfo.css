@@ -1,0 +1,22 @@
+span {
+  cursor: pointer;
+  color: #007bff;
+}
+
+span:hover {
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgb(235, 227, 227);
+}
+
+.weburl {
+  overflow: hidden !important;
+}
+
+.popover {
+  max-width: 380px;
+  background-color: #eceff1;
+}
+
+.popover .body {
+  font-size: 12px;
+}

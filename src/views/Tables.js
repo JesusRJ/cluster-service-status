@@ -2,19 +2,21 @@ import React from "react";
 import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import api from "../services/api";
+import ServiceStatusInfo from "../components/services-status-table/ServiceStatusInfo";
+import { Service } from "../services/api";
 
 class Tables extends React.Component {
   constructor(props) {
     super(props);
+    this.service = new Service();
     this.state = {
       servicesStatus: [],
     };
   }
 
   async getData() {
-    api
-      .get("/v1/services/status")
+    await this.service
+      .ListServicesStatus()
       .then((response) => this.setState({ servicesStatus: response.data }))
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -30,10 +32,15 @@ class Tables extends React.Component {
       return [
         <tr key={index}>
           <td>{index}</td>
-          <td>{status.name}</td>
+          <td>
+            <ServiceStatusInfo id={index} status={status} title={status.name} />
+          </td>
           <td>{status.namespace}</td>
-          <td>{status.replicas}</td>
-          <td>{status.replicasReady}</td>
+          <td>
+            {(status.replicasReady ? status.replicasReady : 0) +
+              "/" +
+              status.replicas}
+          </td>
           <td>{status.lastUpdate}</td>
         </tr>,
       ];
@@ -72,10 +79,7 @@ class Tables extends React.Component {
                         Namespace
                       </th>
                       <th scope="col" className="border-0">
-                        Replicas Count
-                      </th>
-                      <th scope="col" className="border-0">
-                        Replicas Ready
+                        Replicas
                       </th>
                       <th scope="col" className="border-0">
                         Last Update
