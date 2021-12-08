@@ -91,7 +91,7 @@ class ServiceStatusInfo extends React.Component {
     }
 
     return (
-      <div>
+      <div className="popover-info">
         <span className="ml-auto" href="#" id={popoverId} onClick={this.toggle}>
           {this.props.title}
         </span>
@@ -100,7 +100,6 @@ class ServiceStatusInfo extends React.Component {
           open={this.state.open}
           toggle={this.toggle}
           target={popoverTarget}
-          className="popover"
         >
           <PopoverHeader>Git Commit: {this.state.status.name}</PopoverHeader>
           <PopoverBody className="body">{popoverBody}</PopoverBody>

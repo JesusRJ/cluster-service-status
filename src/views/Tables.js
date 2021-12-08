@@ -1,8 +1,7 @@
 import React from "react";
-import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
-
+import { Container, Row, Col } from "shards-react";
 import PageTitle from "../components/common/PageTitle";
-import ServiceStatusInfo from "../components/services-status-table/ServiceStatusInfo";
+import ServiceStatus from "../components/service-status/ServiceStatus";
 import { Service } from "../services/api";
 
 class Tables extends React.Component {
@@ -28,23 +27,7 @@ class Tables extends React.Component {
   }
 
   render() {
-    const lines = this.state.servicesStatus.map((status, index) => {
-      return [
-        <tr key={index}>
-          <td>{index}</td>
-          <td>
-            <ServiceStatusInfo id={index} status={status} title={status.name} />
-          </td>
-          <td>{status.namespace}</td>
-          <td>
-            {(status.replicasReady ? status.replicasReady : 0) +
-              "/" +
-              status.replicas}
-          </td>
-          <td>{status.lastUpdate}</td>
-        </tr>,
-      ];
-    });
+    const servicesStatus = this.state.servicesStatus;
 
     return (
       <Container fluid className="main-content-container px-4">
@@ -53,43 +36,13 @@ class Tables extends React.Component {
           <PageTitle
             sm="4"
             title="Serviços"
-            subtitle="Informações dos"
+            subtitle="Status dos"
             className="text-sm-left"
           />
         </Row>
-
-        {/* Default Light Table */}
         <Row>
           <Col>
-            <Card small className="mb-4">
-              <CardHeader className="border-bottom">
-                <h6 className="m-0">Serviços disponíveis</h6>
-              </CardHeader>
-              <CardBody className="p-0 pb-3">
-                <table className="table mb-0">
-                  <thead className="bg-light">
-                    <tr>
-                      <th scope="col" className="border-0">
-                        #
-                      </th>
-                      <th scope="col" className="border-0">
-                        Name
-                      </th>
-                      <th scope="col" className="border-0">
-                        Namespace
-                      </th>
-                      <th scope="col" className="border-0">
-                        Replicas
-                      </th>
-                      <th scope="col" className="border-0">
-                        Last Update
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>{lines}</tbody>
-                </table>
-              </CardBody>
-            </Card>
+            <ServiceStatus servicesStatus={servicesStatus} />
           </Col>
         </Row>
       </Container>
