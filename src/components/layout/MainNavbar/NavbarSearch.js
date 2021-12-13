@@ -13,7 +13,6 @@ class NavbarSearch extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value);
     this.props.onFilter(e.target.value);
   }
 

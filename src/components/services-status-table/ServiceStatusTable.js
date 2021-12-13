@@ -62,7 +62,7 @@ class ServiceStatusTable extends React.Component {
 
   renderLines(service, index) {
     return [
-      <tr key={index}>
+      <tr key={service.name}>
         <td>{index}</td>
         <td>
           <ServiceStatusInfo id={index} status={service} title={service.name} />
