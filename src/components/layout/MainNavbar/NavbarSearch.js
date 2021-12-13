@@ -27,7 +27,7 @@ class NavbarSearch extends React.Component {
           </InputGroupAddon>
           <FormInput
             className="navbar-search"
-            placeholder="Search for something..."
+            placeholder="Filtre os serviços..."
             onChange={this.handleChange}
           />
         </InputGroup>
