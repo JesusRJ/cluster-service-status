@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Cluster Service Status
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Get deployment info from Kubernetes.
+This app require a third Inter internal microservice that get deployments from Kubernetes namespaces.
 
 ## Available Scripts
 
