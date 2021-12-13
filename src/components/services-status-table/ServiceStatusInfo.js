@@ -6,13 +6,13 @@ import "./ServiceStatusInfo.css";
 class ServiceStatusInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
     this.service = new Service();
     this.state = {
       open: false,
       status: props.status,
       commitInfo: {},
     };
+    this.toggle = this.toggle.bind(this);
   }
 
   async toggle() {
@@ -51,7 +51,7 @@ class ServiceStatusInfo extends React.Component {
           <strong className="mr-1">Status:</strong> {commit.status}
         </span>
         <span className="d-flex mb-2">
-          <i class="material-icons mr-1">chat_bubble_outline</i>
+          <i className="material-icons mr-1">chat_bubble_outline</i>
           <strong className="mr-1">Título:</strong> {commit.title}
         </span>
         <span className="d-flex mb-2">

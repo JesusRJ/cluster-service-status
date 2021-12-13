@@ -6,23 +6,49 @@ import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainFooter from "../components/layout/MainFooter";
 import Tables from "../views/Tables";
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => (
-  <Container fluid>
-    <Row>
-      <Col
-        className="main-content p-0"
-        lg={{ size: 12, offset: 0 }}
-        md={{ size: 12, offset: 0 }}
-        sm="12"
-        tag="main"
-      >
-        {!noNavbar && <MainNavbar />}
-        <Tables />
-        {!noFooter && <MainFooter />}
-      </Col>
-    </Row>
-  </Container>
-);
+class DefaultLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: "",
+    };
+
+    this.handleFilter = this.handleFilter.bind(this);
+  }
+
+  render() {
+    const noNavbar = this.props.noNavbar;
+    const noFooter = this.props.noFooter;
+    const filter = this.state.filter;
+    return (
+      <Container fluid>
+        <Row>
+          <Col
+            className="main-content p-0"
+            lg={{ size: 12, offset: 0 }}
+            md={{ size: 12, offset: 0 }}
+            sm="12"
+            tag="main"
+          >
+            {!noNavbar && (
+              <MainNavbar onFilter={(text) => this.handleFilter(text)} />
+            )}
+            <Tables filter={filter} />
+            {!noFooter && <MainFooter />}
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
+  handleFilter(text) {
+    this.setState({
+      filter: text,
+    });
+  }
+
+  layout() {}
+}
 
 DefaultLayout.propTypes = {
   /**

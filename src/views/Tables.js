@@ -27,7 +27,13 @@ class Tables extends React.Component {
   }
 
   render() {
-    const servicesStatus = this.state.servicesStatus;
+    let servicesStatus = this.state.servicesStatus;
+
+    if (this.props.filter) {
+      servicesStatus = servicesStatus.filter((status) => {
+        return status.name.includes(this.props.filter);
+      });
+    }
 
     return (
       <Container fluid className="main-content-container px-4">

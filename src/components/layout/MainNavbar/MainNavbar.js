@@ -6,7 +6,7 @@ import { Container, Navbar } from "shards-react";
 import NavbarSearch from "./NavbarSearch";
 import MainNavbarLogo from "./MainNavbarLogo";
 
-const MainNavbar = ({ layout, stickyTop }) => {
+const MainNavbar = ({ stickyTop, onFilter }) => {
   const classes = classNames(
     "main-navbar",
     "bg-white",
@@ -18,7 +18,7 @@ const MainNavbar = ({ layout, stickyTop }) => {
       <Container className="p-0">
         <Navbar type="light" className="align-items-stretch flex-md-nowrap p-0">
           <MainNavbarLogo />
-          <NavbarSearch />
+          <NavbarSearch onFilter={(text) => onFilter(text)} />
         </Navbar>
       </Container>
     </div>
@@ -27,13 +27,10 @@ const MainNavbar = ({ layout, stickyTop }) => {
 
 MainNavbar.propTypes = {
   /**
-   * The layout type where the MainNavbar is used.
-   */
-  layout: PropTypes.string,
-  /**
    * Whether the main navbar is sticky to the top, or not.
    */
   stickyTop: PropTypes.bool,
+  onFilter: PropTypes.func,
 };
 
 MainNavbar.defaultProps = {
